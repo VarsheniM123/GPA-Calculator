@@ -214,6 +214,9 @@
                 // Calculate letter grade and points earned
                 let letterGrade;
                 let pointsEarned;
+                if(isNaN(creditHours) || isNaN(gradeEarned) || isNaN(courseName)){
+                    alert('You must put in all of the required info!')
+                    return;
                 if (isNaN(creditHours) || (creditHours !== 4 && creditHours !== 5)){
                  alert('Credit Hours must be either 4 or 5 depending on your class!');
                  return; // Exit the function if validation fails
