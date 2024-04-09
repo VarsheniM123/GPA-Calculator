@@ -352,33 +352,50 @@
         }
             // Function to calculate weighted GPA
             function calculateWeightedGPA(records) {
-                let weightedPoints = 0;
-                let totalWeight = 0;
+            let weightedPoints = 0;
+            let totalWeight = 0;
 
-                for (let i = 0; i < records.length; i++) {
-                    const record = records[i];
-                    const { creditHours, gradeEarned } = record;
-                    let pointsEarned;
+            for (let i = 0; i < records.length; i++) {
+                const record = records[i];
+                const { creditHours, gradeEarned } = record;
+                let pointsEarned;
 
-                    // Adjust points earned based on a 5.0 scale
+                // Adjust points earned based on regular or honors class
+                if (creditHours === 5) {
+                    // Honors/AP class
                     if (gradeEarned >= 90) {
-                        pointsEarned = 5;
+                        pointsEarned = 5.0;
                     } else if (gradeEarned >= 80) {
-                        pointsEarned = 4;
+                        pointsEarned = 4.0;
                     } else if (gradeEarned >= 70) {
-                        pointsEarned = 3;
+                        pointsEarned = 3.0;
                     } else if (gradeEarned >= 60) {
-                        pointsEarned = 2;
+                        pointsEarned = 2.0;
                     } else {
-                        pointsEarned = 0;
+                        pointsEarned = 1.0;
                     }
-
-                    weightedPoints += parseInt(creditHours) * pointsEarned;
-                    totalWeight += parseInt(creditHours);
+                } else {
+                    // Regular class
+                    if (gradeEarned >= 90) {
+                        pointsEarned = 4.0;
+                    } else if (gradeEarned >= 80) {
+                        pointsEarned = 3.0;
+                    } else if (gradeEarned >= 70) {
+                        pointsEarned = 2.0;
+                    } else if (gradeEarned >= 60) {
+                        pointsEarned = 1.0;
+                    } else {
+                        pointsEarned = 0.0;
+                    }
                 }
 
-                return weightedPoints / totalWeight;
+                weightedPoints += parseInt(creditHours) * pointsEarned;
+                totalWeight += parseInt(creditHours);
             }
+
+            return weightedPoints / totalWeight;
+        }
+
                     
             // Event listener for 'Save Changes' button
             saveButton.addEventListener('click', () => {
